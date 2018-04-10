@@ -50,8 +50,11 @@ public class MainActivity extends AppCompatActivity {
         Set<Contacts> tempContacts = new HashSet<>();
         tempContacts.addAll(list);
 
+
+
         list.clear();
         list.addAll(tempContacts);
+        Collections.sort(list, new Compare());
 
 
         adapter = new ContactsAdapter(list,this);
@@ -96,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         cursor.close();
+
+
 
 
         return  list;
