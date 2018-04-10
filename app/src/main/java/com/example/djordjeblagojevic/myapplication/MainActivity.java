@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -24,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
-    public static ArrayList<Contacts> list;
+    public  ArrayList<Contacts> list;
+
     public static final int RequestPermissionCode = 1;
     private Contacts contacts;
 
@@ -44,7 +47,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        Set<Contacts> tempContacts = new HashSet<>();
+        tempContacts.addAll(list);
 
+        list.clear();
+        list.addAll(tempContacts);
+
+
+        adapter = new ContactsAdapter(list,this);
+
+        recyclerView.setAdapter(adapter);
 
 
 
@@ -60,16 +72,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        adapter = new ContactsAdapter(list,this);
-
-        recyclerView.setAdapter(adapter);
 
     }
 
 
-    public void GetContactsIntoArrayList(){
+    public ArrayList<Contacts> GetContactsIntoArrayList(){
 
         Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,null, null, null);
+
 
         while (cursor.moveToNext()) {
 
@@ -80,9 +90,15 @@ public class MainActivity extends AppCompatActivity {
             contacts.number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
             list.add(contacts);
+
+
+
         }
 
         cursor.close();
+
+
+        return  list;
 
     }
 
@@ -124,6 +140,16 @@ public void EnableRuntimePermission(){
 
                 }
                 break;
+        }
+    }
+
+
+    public class Compare implements Comparator<Contacts>{
+
+
+        @Override
+        public int compare(Contacts o1, Contacts o2) {
+            return o1.getName().compareTo(o2.getName());
         }
     }
 

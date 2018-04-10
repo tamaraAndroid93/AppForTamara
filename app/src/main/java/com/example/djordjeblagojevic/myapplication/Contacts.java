@@ -1,11 +1,12 @@
 package com.example.djordjeblagojevic.myapplication;
 
-public class Contacts {
+import java.io.Serializable;
+
+public class Contacts implements Serializable {
 
     public String name,surname;
     public String number;
     public String photoUri;
-
 
 
 
@@ -56,5 +57,24 @@ public class Contacts {
 
     public void setPhotoUri(String photoUri) {
         this.photoUri = photoUri;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if(obj instanceof Contacts){
+             Contacts item = (Contacts) obj ;
+            if(((Contacts) obj).getName().equals(item.getName())){
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return getName().hashCode();
     }
 }

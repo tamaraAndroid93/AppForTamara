@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -44,7 +45,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-         Contacts con = contacts.get(position);
+         final Contacts con = contacts.get(position);
 
          holder.textName.setText(con.getName());
          holder.textName.setContentDescription(con.getName());
@@ -55,7 +56,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
 
                  Intent intent = new Intent(context,ContactActivity.class);
 
-                 intent.putExtra("position",position);
+                 intent.putExtra("position",con);
 
                   context.startActivity(intent);
 

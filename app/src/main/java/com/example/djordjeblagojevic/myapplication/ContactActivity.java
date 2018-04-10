@@ -1,13 +1,8 @@
 package com.example.djordjeblagojevic.myapplication;
 
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.DrawableContainer;
 import android.os.Bundle;
-import android.renderscript.Allocation;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
-import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -27,12 +22,14 @@ public class ContactActivity extends AppCompatActivity {
 
         incCompo();
 
-        int position;
-
-        position = getIntent().getIntExtra("position", 0);
+        Contacts contacts;
 
 
-        loadContact(position);
+        contacts = (Contacts)getIntent().getSerializableExtra("position");
+
+
+        loadContacts(contacts);
+
 
 
 
@@ -41,28 +38,27 @@ public class ContactActivity extends AppCompatActivity {
     }
 
 
-    private void loadContact(int position) {
+    private void loadContacts (Contacts contacts){
 
+        Picasso.with(getApplicationContext()).load(contacts.photoUri).into(imageView);
 
+        if(contacts.photoUri==null){
 
-        Picasso.with(getApplicationContext())
-                .load(MainActivity.list.get(position).photoUri)
-                .into(imageView);
-
-        if(MainActivity.list.get(position).photoUri==null){
-
-           imageView.setImageResource(R.drawable.ic_launcher_background);
+            imageView.setImageResource(R.drawable.ic_launcher_background);
         }
 
-        textViewNameDetail.setText(MainActivity.list.get(position).name);
+        textViewNameDetail.setText(contacts.name);
 
-        textViewNumberDetail.setText(MainActivity.list.get(position).number);
+        textViewNumberDetail.setText(contacts.number);
 
-        textViewNameDetail.setContentDescription(MainActivity.list.get(position).name);
+        textViewNameDetail.setContentDescription(contacts.name);
 
-        textViewNumberDetail.setContentDescription(MainActivity.list.get(position).number);
-
+        textViewNumberDetail.setContentDescription(contacts.number);
     }
+
+
+
+
 
 
 
