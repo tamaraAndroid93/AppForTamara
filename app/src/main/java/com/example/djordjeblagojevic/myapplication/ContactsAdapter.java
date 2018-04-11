@@ -19,19 +19,15 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 
-public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHolder> implements View.OnClickListener {
+public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHolder> {
 
      public static ArrayList<Contacts> contacts;
 
-     private Context context;
-
+     private Context context;// ne treba
 
     public ContactsAdapter(ArrayList <Contacts> contacts, Context context) {
         this.contacts = contacts;
-        this.context = context;
-
-
-
+      //  this.context = context;
     }
 
     @Override
@@ -55,11 +51,9 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
              public void onClick(View v) {
 
                  Intent intent = new Intent(context,ContactActivity.class);
-
                  intent.putExtra("position",con);
-
+                  // position konstatnat public static final String NESTO = "position"
                   context.startActivity(intent);
-
              }
          });
 
@@ -71,24 +65,19 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
         return contacts.size();
     }
 
-    @Override
-    public void onClick(View v) {
+//     @Override
+//     public void onClick(View v) {
 
-    }
+//     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder  {
+    public static class ViewHolder extends RecyclerView.ViewHolder  {
 
         public TextView textName,textSurname,textNumber;
 
-
         public ViewHolder(View itemView) {
             super(itemView);
-
             textName = (TextView) itemView.findViewById(R.id.textName);
-
         }
-
-
     }
 }
