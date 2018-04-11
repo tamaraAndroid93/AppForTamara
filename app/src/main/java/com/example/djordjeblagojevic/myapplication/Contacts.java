@@ -1,23 +1,16 @@
 package com.example.djordjeblagojevic.myapplication;
 
-import java.io.Serializable;
+import java.io.Serializable;// Parcelable
 
 public class Contacts implements Serializable {
 
+    //private
     public String name,surname;
     public String number;
     public String photoUri;
 
-
-
-
-
     public Contacts() {
-
-
     }
-
-
 
     public Contacts(String name, String surname, String number, String photoUrl) {
         this.name = name;
@@ -25,7 +18,6 @@ public class Contacts implements Serializable {
         this.number = number;
         this.photoUri = photoUrl;
     }
-
 
     public String getName() {
         return name;
@@ -59,6 +51,8 @@ public class Contacts implements Serializable {
         this.photoUri = photoUri;
     }
 
+    // moze i tako a moze i kao klimenta :)
+    // da se uporede ime prezime i br telefona
     @Override
     public boolean equals(Object obj) {
 
